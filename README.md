@@ -1,12 +1,16 @@
-# scrapy-mongo
+# scrapy-utils
 
-Scrapy爬取结果进MongoDB的Pipeline
+Scrapy的工具库
+
+* scrapy_mongo
+
+    Scrapy爬取结果进MongoDB的Pipeline
 
 ### 工具
 
     # 打包
     python setup.py sdist
     # 安装
-    pip install dist/scrapy-mongo-0.0.1.tar.gz
+    pip install dist/scrapy-utils-0.0.1.tar.gz
     # 卸载
-    pip uninstall scrapy-mongo
+    pip uninstall scrapy-utils
