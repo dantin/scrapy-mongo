@@ -7,6 +7,8 @@ from pymongo.mongo_client import MongoClient
 from pymongo.read_preferences import ReadPreference
 from scrapy.exporters import BaseItemExporter
 
+logger = logging.getLogger(__name__)
+
 
 # Item Exporters are used to export/serialize items into different formats.
 class MongoDBPipeline(BaseItemExporter):
@@ -63,7 +65,7 @@ class MongoDBPipeline(BaseItemExporter):
 
         # Check for illegal configuration
         if self.config['buffer'] and self.config['unique_key']:
-            logging.error((
+            logger.error((
                 u'Illegal Config: Settings both MONGODB_BUFFER_DATA '
                 u'and MONGODB_UNIQUE_KEY is not supported'
             ))
@@ -90,7 +92,7 @@ class MongoDBPipeline(BaseItemExporter):
         # Set up the collection
         database = connection[self.config['database']]
         self.collection = database[self.config['collection']]
-        logging.info(u'Connected to MongoDB {0}, using "{1}/{2}"'.format(
+        logger.info(u'Connected to MongoDB {0}, using "{1}/{2}"'.format(
                 self.config['uri'],
                 self.config['database'],
                 self.config['collection']))
@@ -98,14 +100,14 @@ class MongoDBPipeline(BaseItemExporter):
         # Ensure unique index
         if self.config['unique_key']:
             self.collection.ensure_index(self.config['unique_key'], unique=True)
-            logging.info(u'Ensuring index for key {0}'.format(
+            logger.info(u'Ensuring index for key {0}'.format(
                     self.config['unique_key']))
 
         # Get the duplicate on key option
         if self.config['stop_on_duplicate']:
             tmpValue = self.config['stop_on_duplicate']
             if tmpValue < 0:
-                logging.error(
+                logger.error(
                         (
                             u'Negative values are not allowed for'
                             u' MONGODB_STOP_ON_DUPLICATE option.'
@@ -174,12 +176,12 @@ class MongoDBPipeline(BaseItemExporter):
         if self.config['unique_key'] is None:
             try:
                 self.collection.insert(item, continue_on_error=True)
-                logging.debug(
+                logger.debug(
                         u'Stored item(s) in MongoDB {0}/{1}'.format(
                                 self.config['database'], self.config['collection'])
                 )
             except errors.DuplicateKeyError:
-                logging.debug(u'Duplicate key found')
+                logger.debug(u'Duplicate key found')
                 if self.stop_on_duplicate > 0:
                     self.duplicate_key_count += 1
                     if self.duplicate_key_count >= self.stop_on_duplicate:
@@ -199,7 +201,7 @@ class MongoDBPipeline(BaseItemExporter):
 
             self.collection.update(key, item, upsert=True)
 
-            logging.debug(
+            logger.debug(
                     u'Stored item(s) in MongoDB {0}/{1}'.format(
                             self.config['database'], self.config['collection'])
             )
