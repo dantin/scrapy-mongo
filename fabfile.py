@@ -54,6 +54,8 @@ def cmd(__script, venv_path=None):
         if venv_path:
             with virtualenv(venv_path):
                 run(__script)
+        else:
+            run(__script)
 
 
 def tier(__id):
