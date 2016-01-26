@@ -13,8 +13,8 @@ setup(
         package_data={
             # 任何包中含有.txt文件，都包含它
             '': ['*.txt'],
-            # 包含scrapy_random_useragent包,data文件夹中的 *.dat文件
-            'scrapy_random_useragent': ['data/*.dat'],
+            # 包含scrapy_utils.data文件夹中的 *.dat文件
+            'scrapy_utils': ['data/*.dat'],
         },
         install_requires=['pymongo>=3.2', 'Scrapy>=1.0.4'],
 )

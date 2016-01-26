@@ -2,13 +2,9 @@
 
 Scrapy的工具库
 
-* scrapy_mongo
-
-    Scrapy爬取结果进MongoDB的Pipeline
+* Scrapy爬取结果进MongoDB的Pipeline
     
-* scrapy_random_useragent
-
-    动态UserAgent
+* 动态UserAgent
 
 ### 工具
 
@@ -21,12 +17,12 @@ Scrapy的工具库
 
 ### 使用方法
 
-* scrapy_mongo
+* Scrapy爬取结果进MongoDB的Pipeline
 
     在settings.py, 修改ITEM_PIPELINES的设置,如下:
     
         ITEM_PIPELINES = {
-            'scrapy_mongo.pipelines.MongoDBPipeline': 300
+            'scrapy_utils.pipelines.MongoDBPipeline': 300
         }
     
     同时指定MongoDB的uri, database和collection
@@ -35,14 +31,13 @@ Scrapy的工具库
     MONGODB_DATABASE = 'crawler'
     MONGODB_COLLECTION = 'scrapy_items'
     
-
-* scrapy_random_useragent
+* 动态UserAgent
 
     在settings.py, 修改DOWNLOADER_MIDDLEWARES的设置,如下:
 
         DOWNLOADER_MIDDLEWARES = {
             'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-            'scrapy_random_useragent.middlewares.RandomUserAgentMiddleware': 1,
+            'scrapy_utils.middlewares.RandomUserAgentMiddleware': 1,
         }
 
     禁用默认的UserAgentMiddleware,启用自有的 RandomUserAgentMiddleware
