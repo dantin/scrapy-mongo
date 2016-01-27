@@ -18,10 +18,12 @@ env.settings = {
     'dev-tier': {
         'tier': 'dev',
         'hosts': ['10.3.1.241:22'],
+        'path': '',
         'user': 'sem',
         'password': '',
-        'path': '/aztechx/sem/semdata/app/%s' % env.name,
-        'src': '/adeaz/sem/semcode/%s' % env.name
+        'activate': '/home/sem/venv/scrapyd/',
+        'src': '/aztechx/sem/code/%s' % env.name,
+        'env.repository': 'https://github.com/dantin/%s.git' % env.name
     },
     # 本地环境
     'local-tier': {
@@ -97,7 +99,7 @@ def install():
     """ Install
     :return: None
     """
-    cmd('pip install dist/%s-%s.tar.gz' % (env.name, version), venv_path=env.activate)
+    cmd('pip install %s/dist/%s-%s.tar.gz' % (env.src, env.name, version), venv_path=env.activate)
 
 
 def upgrade():
