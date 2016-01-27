@@ -6,7 +6,14 @@ Scrapy的工具库
     
 * 动态UserAgent
 
-### 工具
+### 使用
+
+    # 开发环境安装
+    fab tier:dev build install
+    # 本地环境安装
+    fab tier:local build install
+
+### 备忘
 
     # 打包
     python setup.py sdist
